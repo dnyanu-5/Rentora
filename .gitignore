@@ -1,0 +1,17 @@
+# Node modules - huge folder created by npm install
+node_modules/
+
+# Environment variables (secrets, passwords, API keys)
+.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS system files
+.DS_Store
+Thumbs.db
+
+# VS Code settings (optional)
+.vscode/

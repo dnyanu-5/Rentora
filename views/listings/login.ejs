@@ -1,0 +1,17 @@
+<% layout("/layouts/boilerplate") -%>
+    <div class="row mt-3">
+        <h2 class="col-6 offset-3">Login to Dnya-bnb</h2>
+        <div class="col-6 offset-3">
+            <form action="/login" method="post" class="needs-validation" novalidate>
+                 <div class="mb-3">
+                        <label for="username" class="form-label">username</label>
+                        <input type="text" name=username  required class="form-control" id="username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">password</label>
+                        <input type="password" name=password required id="password" class="form-control">
+                    </div>
+                    <button class="btn btn-success">Login</button>
+            </form>
+        </div>
+    </div>

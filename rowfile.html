@@ -1,0 +1,51 @@
+// step 2 testing if db is working or not with raw data
+// app.get("/test", async (req, res) => {
+//     let test1 = new Listing({
+//         title: "home27",
+//         description: "This home is own by dnyanu sonawane",
+//         price: 5000,
+//         location: "Thane",
+//         country: "India",
+//     });
+//     await test1.save();
+//     console.log(test1);
+//     res.send("sucessful testing");
+// })
+
+
+
+// <% if(currUser && currUser._id.equals(lists.owner._id)){%>
+//                 <div class="btns">
+//                     <a href="/listings/<%= lists._id %>/edit" class="btn btn-dark col-1 offset-3 add-btn">Edit</a>
+//                     <form action="/listings/<%= lists._id %>?_method=DELETE" method="post">
+//                         <button class="btn btn-dark offset-3"> Delete</button>
+//                     </form>
+//                 </div>
+//                 <%}%>
+
+// app.get("/demo",async(req,res)=>{
+//     let fuser= new User({
+//         email:"abcd@gmail.com",
+//         username:"delta=alpha"
+//     });
+//     let newuser= await User.register(fuser,"august");
+//     res.send(newuser);
+// })
+
+
+  img: {
+        // type: String,
+        url: String,
+        filename: String,
+        default: "https://images.unsplash.com/photo-1533619239233-6280475a633a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHNreSUyMHZhY2F0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
+
+        set: (v) => v === "" ? "https://images.unsplash.com/photo-1533619239233-6280475a633a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHNreSUyMHZhY2F0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60" : v,
+    },
+
+    
+        img: {
+        type: String,
+        default: "https://images.unsplash.com/photo-1533619239233-6280475a633a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHNreSUyMHZhY2F0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
+
+        set: (v) => v === "" ? "https://images.unsplash.com/photo-1533619239233-6280475a633a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHNreSUyMHZhY2F0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60" : v,
+    },
