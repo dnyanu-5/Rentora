@@ -4,7 +4,7 @@ const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
 const ejsMate = require("ejs-mate");
-const ExpressEror = require("./utils/ExpressError.js");
+const ExpressError = require("./utils/ExpressError.js");
 app.set("view engine", "ejs");
 const methodOverride = require("method-override");
 
@@ -14,7 +14,7 @@ const userRoute = require("./routes/userRoute.js");
 
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const User =require("./datamodels/user.js");
+const User = require("./datamodels/user.js");
 
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
@@ -31,7 +31,7 @@ const flash = require('connect-flash');
 const sessionOptions = {
     secret: "august",
     resave: false,
-    saveUninitialized: false, 
+    saveUninitialized: false,
     cookie: {
         httpOnly: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
@@ -46,6 +46,28 @@ app.get("/", (req, res) => {
     res.send("i am root");
 })
 
+
+app.use((req, res, next) => {
+  const oldRender = res.render;
+  res.render = function (...args) {
+    if (res.headersSent) {
+      console.log("⚠️  HEADERS ALREADY SENT - render called again!");
+    }
+    return oldRender.apply(res, args);
+  };
+
+  const oldRedirect = res.redirect;
+  res.redirect = function (...args) {
+    if (res.headersSent) {
+      console.log("⚠️  HEADERS ALREADY SENT - redirect called again!");
+    }
+    return oldRedirect.apply(res, args);
+  };
+
+  next();
+});
+
+
 app.use(session(sessionOptions));
 app.use(flash());
 
@@ -57,7 +79,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use((req,res,next)=>{
+app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
     res.locals.currUser = req.user;
@@ -85,11 +107,14 @@ app.use("/", userRoute);
 
 // wrong path error
 app.all("*splate", (req, res, next) => {
-    next(new ExpressEror(404, "Page not found!"));
+    next(new ExpressError(404, "Page not found!"));
 });
 // middleware to handle error 
 app.use((err, req, res, next) => {
-    let { status = 500, message = "some erorr" } = err;
+    if (res.headersSent) {
+        return next(err);
+    }
+    let { status = 500, message = "some error" } = err;
     // res.status(status).send(message);
     res.render("listings/error.ejs", { err });
 });

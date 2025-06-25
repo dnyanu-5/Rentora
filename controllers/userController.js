@@ -6,7 +6,7 @@ module.exports.signup = (req, res) => {
 };
 
 //submit signup
-module.exports.submitSignup = async (req, res) => {
+module.exports.submitSignup = async (req, res,next) => {
     try {
         let { username, email, password } = req.body;
         const newUser = new User({ email, username });
@@ -18,22 +18,22 @@ module.exports.submitSignup = async (req, res) => {
                 return next(err);
             }
             req.flash("success", "user registered successfully!");
-            res.redirect("/listings");
+            return res.redirect("/listings");
         });
     } catch (err) {
         req.flash("error", err.message);
-        res.redirect("/signup");
+        return res.redirect("/signup");
     }
 };
 //login form
 module.exports.login = (req, res) => {
-    res.render("listings/login.ejs");
+    return res.render("listings/login.ejs");
 };
 //submit login
 module.exports.submitLogin = async (req, res) => {
     req.flash("success", "welcome back to Dnya-bnb..");
     let redirectUrl = res.locals.redirectUrl || "/listings";
-    res.redirect(redirectUrl);
+    return res.redirect(redirectUrl);
 };
 //logout
 module.exports.logout=(req, res, next) => {
@@ -42,6 +42,6 @@ module.exports.logout=(req, res, next) => {
             return next(err);
         }
         req.flash("success", "You successfully logged out.");
-        res.redirect("/listings");
+        return res.redirect("/listings");
     });
 };

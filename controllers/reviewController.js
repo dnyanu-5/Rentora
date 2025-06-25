@@ -1,5 +1,6 @@
 const Listing = require("../datamodels/listing.js");
 const Review = require("../datamodels/review.js");
+const ExpressError = require("../utils/ExpressError.js");
 //create review
 module.exports.createReview = async (req, res) => {
     let listing = await Listing.findById(req.params.id);
@@ -10,7 +11,7 @@ module.exports.createReview = async (req, res) => {
     await newReview.save();
     await listing.save();
     req.flash("success", "New Review is created..");
-    res.redirect(`/listings/${listing._id}`);
+    return res.redirect(`/listings/${listing._id}`);
 };
 //delete review
 module.exports.destroyReview = async (req, res) => {
@@ -18,5 +19,5 @@ module.exports.destroyReview = async (req, res) => {
     await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
     await Review.findByIdAndDelete(reviewId);
     req.flash("success", "Review deleted..");
-    res.redirect(`/listings/${id}`);
+    return res.redirect(`/listings/${id}`);
 };

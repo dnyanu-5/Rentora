@@ -4,22 +4,20 @@ const User = require("../datamodels/user.js");
 const wrapAsync = require("../utils/wrapAsync");
 const passport = require("passport");
 const { saveRedirectUrl } = require("../middleware.js");
-const usercontroller=require("../controllers/userController.js");
+const usercontroller = require("../controllers/userController.js");
 
 //signup
-router.get("/signup",usercontroller.signup);
-
-//after submitting signup form
-router.post("/signup", wrapAsync(usercontroller.submitSignup));
+router.route("/signup")
+    .get(usercontroller.signup)
+    .post(wrapAsync(usercontroller.submitSignup));
 
 //login 
-router.get("/login", usercontroller.login);
+router.route("/login")
+    .get(usercontroller.login)
+    .post(saveRedirectUrl,
+        passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
+        usercontroller.submitLogin);
 
-//after login 
-router.post("/login", saveRedirectUrl,
-    passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
-    usercontroller.submitLogin);
-    
 //logout
 router.get("/logout", usercontroller.logout);
 

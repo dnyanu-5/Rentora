@@ -1,6 +1,7 @@
 const Listing = require("./datamodels/listing");
 const Review = require("./datamodels/review.js");
 const {listingSchema,reviewsSchema}= require("./schema.js");
+const ExpressError = require("./utils/ExpressError.js");
 
 module.exports.isLoggedIn = (req, res, next) => {
     console.log(req.user);
