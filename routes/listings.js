@@ -5,6 +5,8 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const { isLoggedIn, isOwner ,validateListings} = require("../middleware.js");
 const listingcontroller=require("../controllers/listingController.js");
+const multer  = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 //Here we dont have access of app hence we are using router instead of app.get/post...
 // we use router.route for more compact version
@@ -12,7 +14,7 @@ const listingcontroller=require("../controllers/listingController.js");
 // step 4  ejs setup and index route 
 router.route("/")
 .get(wrapAsync(listingcontroller.index))
-.post(isLoggedIn, validateListings, 
+.post(isLoggedIn,upload.single("image"),validateListings, 
     wrapAsync(listingcontroller.submitListing));
 
 // 6 create new lists

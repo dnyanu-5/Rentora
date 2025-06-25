@@ -4,11 +4,11 @@
         <div class="row mt-3">
             <div class="col-8 offset-2">
                 <h4>Create New Listings</h4>
-                <form action="/listings" method="POST" novalidate class="needs-validation">
+                <form action="/listings" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
 
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
-                        <input type="text" name="listings[title]" placeholder="Enter title" required class="form-control">
+                        <input type="text" name="listings[title]" placeholder="Add catchy title" required class="form-control">
                         <div class="valid-feedback">
                             Title is valid!.
                         </div>
@@ -29,7 +29,7 @@
                     <div class="row">
                         <div class="mb-3 col-md-4">
                             <label for="price" class="form-label">Price</label>
-                            <input name="listings[price]" placeholder="Enter price" required class="form-control">
+                            <input name="listings[price]" placeholder="0000" required class="form-control">
                             <div class="invalid-feedback">
                                 Please select a valid price.
                             </div>
@@ -45,9 +45,14 @@
                         </div>
                     </div>
 
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="img" class="form-label">Image</label>
                         <input type="text" name="listings[img]" placeholder="Enter image URL/link" class="form-control">
+                    </div> -->
+
+                    <div class="mb-3">
+                        <label for="img" class="form-label">Upload Image</label>
+                        <input type="file" name="image" placeholder="Upload image URL/link" class="form-control">
                     </div>
 
                     <div class="mb-3">

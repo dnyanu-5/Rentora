@@ -1,3 +1,8 @@
+if(process.env.NODE_ENV !="production"){
+require('dotenv').config();
+}
+// console.log(process.env.API_SECRET) ;
+
 // step 1 basic setup 
 const express = require("express");
 const app = express();
@@ -21,6 +26,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Add this middleware in your `app.js` file before routes
 app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(methodOverride('_method'));  // Use this middleware after body parsing
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
