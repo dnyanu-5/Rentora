@@ -1,4 +1,5 @@
 const Listing = require("../datamodels/listing.js");
+const storage =require("../cloudConfig.js");
 //index route
 module.exports.index = async (req, res) => {
     const allListings = await Listing.find({});
@@ -25,14 +26,12 @@ module.exports.submitListing = async (req, res, next) => {
         let lists = req.body.listings;
         let newListing = new Listing(lists);
         newListing.owner = req.user._id;
-
          if (req.file) {
             newListing.img = {
-                url: `/uploads/${req.file.filename}`,
+                url: req.file.path,
                 filename: req.file.filename
             };
         }
-        
         await newListing.save();
         req.flash("success", "New Listing is created..");
         return res.redirect("/listings");
