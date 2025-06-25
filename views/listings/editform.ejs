@@ -4,7 +4,8 @@
         <div class="row mt-3">
             <div class="col-8 offset-2"></div>
             <h4>Edit Listings</h4>
-            <form action="/listings/<%= lists._id %>?_method=PUT" method="POST" novalidate class="needs-validation">
+            <form action="/listings/<%= lists._id %>?_method=PUT" method="POST" novalidate class="needs-validation"
+                enctype="multipart/form-data">
 
                 <input type="hidden" name="listings[img][url]" value="<%= lists.img.url %>">
                 <input type="hidden" name="listings[img][filename]" value="<%= lists.img.filename || 'listingimage' %>">
@@ -41,8 +42,7 @@
 
                     <div class="mb-3 col-md-8">
                         <label for="country" class="form-label">Country</label>
-                        <input type="text" name="country" value="<%= lists.country %>" class="form-control"
-                            required>
+                        <input type="text" name="country" value="<%= lists.country %>" class="form-control" required>
                         <div class="invalid-feedback">
                             Please select a valid country.
                         </div>
@@ -50,27 +50,21 @@
 
                 </div>
 
-                <!-- <div class="mb-3">
-                    <label for="img" class="form-label">Image</label>
-                    <input type="text" name="img" value="<%= lists.img.url %>" class="form-control" required>
-                    <div class="invalid-feedback">
-                            Please select a valid image.
-                        </div>
-                </div> -->
+                <div class="mb-3">
+                        <label>Original Image:</label><br>
+                        <img src="<%= originalImageUrl %>" style="height: 200px; width: 200px;" />
+                    </div>
+
+                </div>
 
                 <div class="mb-3">
-                    <label for="img" class="form-label">Image (optional)</label>
-                    <input type="text" name="listings[img][url]" class="form-control"
-                        placeholder="Enter new image URL to change">
-                    <div class="invalid-feedback">
-                        Please provide a valid image URL.
-                    </div>
+                    <label for="img" class="form-label">Upload new Image</label>
+                    <input type="file" name="image" class="form-control" placeholder="upload new image">
                 </div>
 
                 <div class="mb-3">
                     <label for="location" class="form-label">Location</label>
-                    <input type="text" name="location" value="<%= lists.location %>" class="form-control"
-                        required>
+                    <input type="text" name="location" value="<%= lists.location %>" class="form-control" required>
                     <div class="invalid-feedback">
                         Please select a valid location.
                     </div>

@@ -24,7 +24,7 @@ router.get("/new", isLoggedIn, listingcontroller.renderNewForm);
 // step 5 show route read individual place 
 router.route("/:id")
     .get(wrapAsync(listingcontroller.showListings))
-    .put(isLoggedIn, isOwner, wrapAsync(listingcontroller.update))
+    .put(isLoggedIn, isOwner,upload.single("image"), wrapAsync(listingcontroller.update))
     .delete(isLoggedIn, isOwner, wrapAsync(listingcontroller.delete))
 
 // 8 edit route
