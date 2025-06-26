@@ -112,3 +112,8 @@ router.post("/login", saveRedirectUrl,
 router.get("/logout", usercontroller.logout);
 
 module.exports = router;
+
+
+app.get("/", (req, res) => {
+    res.send("i am root");
+})

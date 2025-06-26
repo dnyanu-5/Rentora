@@ -48,10 +48,6 @@ const sessionOptions = {
 app.listen(9000, () => {
     console.log("server is listening...");
 })
-app.get("/", (req, res) => {
-    res.send("i am root");
-})
-
 
 app.use((req, res, next) => {
   const oldRender = res.render;
@@ -93,13 +89,15 @@ app.use((req, res, next) => {
 });
 
 //database
+const mongoURL="mongodb://127.0.0.1:27017/airbnbDB";
+const dbURL = process.env.ATLASDB_URL;
 main().then((res) => {
     console.log("database is connected...");
 }).catch((err) => {
     console.log(err);
 })
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/airbnbDB');
+    await mongoose.connect(mongoURL);
 }
 
 //step 3 --> init folder 
