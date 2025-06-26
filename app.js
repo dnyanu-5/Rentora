@@ -1,7 +1,7 @@
-if(process.env.NODE_ENV !="production"){
-require('dotenv').config();
+if (process.env.NODE_ENV != "production") {
+  require('dotenv').config();
 }
-// console.log(process.env.API_SECRET) ;
+// console.log(process.env.ATLASDB_URL) ;
 
 // step 1 basic setup 
 const express = require("express");
@@ -32,43 +32,38 @@ app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 
+//mongo store for session store 
+const dbURL = process.env.ATLASDB_URL;
+const store = MongoStore.create({
+  mongoUrl: dbURL,
+  crypto: {
+    secret: process.env.SECRET,
+  },
+  touchAfter: 24 * 3600,
+});
+
+store.on("error",()=>{
+  console.log("error in mongo session",err);
+});
+
 const sessionOptions = {
-    secret: "august",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        httpOnly: true,
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
-        maxAge: 1000 * 60 * 60 * 24 * 7
-    }
+  store,
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
+    maxAge: 1000 * 60 * 60 * 24 * 7
+  }
 };
 
 app.listen(9000, () => {
-    console.log("server is listening...");
+  console.log("server is listening...");
 })
-
-app.use((req, res, next) => {
-  const oldRender = res.render;
-  res.render = function (...args) {
-    if (res.headersSent) {
-      console.log("⚠️  HEADERS ALREADY SENT - render called again!");
-    }
-    return oldRender.apply(res, args);
-  };
-
-  const oldRedirect = res.redirect;
-  res.redirect = function (...args) {
-    if (res.headersSent) {
-      console.log("⚠️  HEADERS ALREADY SENT - redirect called again!");
-    }
-    return oldRedirect.apply(res, args);
-  };
-
-  next();
-});
-
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -82,22 +77,21 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
-    res.locals.success = req.flash("success");
-    res.locals.error = req.flash("error");
-    res.locals.currUser = req.user;
-    next();
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  res.locals.currUser = req.user;
+  next();
 });
 
 //database
-const mongoURL="mongodb://127.0.0.1:27017/airbnbDB";
-const dbURL = process.env.ATLASDB_URL;
+// const mongoURL="mongodb://127.0.0.1:27017/airbnbDB";
 main().then((res) => {
-    console.log("database is connected...");
+  console.log("database is connected...");
 }).catch((err) => {
-    console.log(err);
+  console.log(err);
 })
 async function main() {
-    await mongoose.connect(mongoURL);
+  await mongoose.connect(dbURL);
 }
 
 //step 3 --> init folder 
@@ -111,16 +105,16 @@ app.use("/", userRoute);
 
 // wrong path error
 app.all("*splate", (req, res, next) => {
-    next(new ExpressError(404, "Page not found!"));
+  next(new ExpressError(404, "Page not found!"));
 });
 // middleware to handle error 
 app.use((err, req, res, next) => {
-    if (res.headersSent) {
-        return next(err);
-    }
-    let { status = 500, message = "some error" } = err;
-    // res.status(status).send(message);
-    res.render("listings/error.ejs", { err });
+  if (res.headersSent) {
+    return next(err);
+  }
+  let { status = 500, message = "some error" } = err;
+  // res.status(status).send(message);
+  res.render("listings/error.ejs", { err });
 });
 
 

@@ -10,7 +10,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # OS system files
-.DS_Store
+**/.DS_Store
 Thumbs.db
 
 # VS Code settings (optional)
