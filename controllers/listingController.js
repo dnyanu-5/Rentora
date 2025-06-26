@@ -1,5 +1,12 @@
 const Listing = require("../datamodels/listing.js");
-const storage =require("../cloudConfig.js");
+const storage = require("../cloudConfig.js");
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const mapToken = process.env.MAP_TOKEN;
+const geocodingClient = mbxGeocoding({ accessToken: mapToken });
+
+
+
+
 //index route
 module.exports.index = async (req, res) => {
     const allListings = await Listing.find({});
@@ -22,22 +29,26 @@ module.exports.showListings = async (req, res) => {
 }
 //submit listing
 module.exports.submitListing = async (req, res, next) => {
-    try {
-        let lists = req.body.listings;
-        let newListing = new Listing(lists);
-        newListing.owner = req.user._id;
-         if (req.file) {
-            newListing.img = {
-                url: req.file.path,
-                filename: req.file.filename
-            };
-        }
-        await newListing.save();
-        req.flash("success", "New Listing is created..");
-        return res.redirect("/listings");
-    } catch (err) {
-        next(err);
+    let response = await geocodingClient.forwardGeocode({
+        query: req.body.listings.location,
+        limit: 1,
+    })
+    .send();
+   
+    let lists = req.body.listings;
+    let newListing = new Listing(lists);
+    newListing.owner = req.user._id;
+    if (req.file) {
+        newListing.img = {
+            url: req.file.path,
+            filename: req.file.filename
+        };
     }
+    newListing.geometry=response.body.features[0].geometry;
+    let saveListing= await newListing.save();
+    console.log(saveListing);
+    req.flash("success", "New Listing is created..");
+    return res.redirect("/listings");
 };
 
 //edit 
@@ -55,11 +66,11 @@ module.exports.edit = async (req, res) => {
 //update
 module.exports.update = async (req, res) => {
     let { id } = req.params;
-    const listing= await Listing.findByIdAndUpdate(id, req.body, { new: true });
+    const listing = await Listing.findByIdAndUpdate(id, req.body, { new: true });
     if (req.file) {
-        listing.img = { 
-            url: req.file.path, 
-            filename: req.file.filename 
+        listing.img = {
+            url: req.file.path,
+            filename: req.file.filename
         };
         await listing.save();
     }
