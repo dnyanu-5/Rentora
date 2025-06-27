@@ -84,14 +84,14 @@ app.use((req, res, next) => {
 });
 
 //database
-// const mongoURL="mongodb://127.0.0.1:27017/airbnbDB";
+const mongoURL="mongodb://127.0.0.1:27017/airbnbDB";
 main().then((res) => {
   console.log("database is connected...");
 }).catch((err) => {
   console.log(err);
 })
 async function main() {
-  await mongoose.connect(dbURL);
+  await mongoose.connect(mongoURL);
 }
 
 //step 3 --> init folder 

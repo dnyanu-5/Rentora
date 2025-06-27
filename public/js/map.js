@@ -10,6 +10,19 @@ const map = new mapboxgl.Map({
 const marker1 = new mapboxgl.Marker({color:"red"})
     .setLngLat(coordinates)     //listing.geometry.coordinates
     .setPopup(
-        new mapboxgl.Popup({offset:25}).setHTML("<p>Exact location will be provided</p>") 
+        new mapboxgl.Popup({offset:25}).setHTML("<p>your excat location</p>") 
     )
     .addTo(map)
+
+
+
+
+
+
+
+
+
+
+
+
+    

@@ -52,7 +52,7 @@ body {
 
 .f-info {
     vertical-align: middle;
-    height: 7rem;
+    height:7rem;
     background-color: #ebebeb;
     text-align: center;
     display: flex;
@@ -98,6 +98,7 @@ body {
 .add-btn {
     background-color: #fe424d !important;
     border: none !important;
+    color: white;
 }
 
 /* show page  */
@@ -108,12 +109,14 @@ body {
 .btns {
     border: none !important;
     display: flex;
-}
+} 
 
 .show-card {
     padding-left: 0;
     padding-right: 0;
 }
+
+
 
 /* MAP STYLING/ */
 
@@ -121,3 +124,66 @@ body {
     height:300px;
     width: 80vh;
 }
+
+/* search button  */
+.btn-search {
+    color: white;
+    background-color: #fe424d;
+    border-radius: 20px;
+    padding: 0 1rem 0 1rem;
+  }
+
+  .btn-search:hover {
+    color: white;
+    background-color: #fe424d;
+  }
+
+  .btn-search i {
+    display: inline;
+    margin-right: 0.3rem;
+  }
+
+  .search-inp {
+    border-radius: 20px;
+    padding: 0.2rem 4rem 0.2rem 4rem;
+    text-align: center;
+    height: 2.5rem;
+    line-height: 2.5rem;
+  }
+
+/* filters */
+
+#filters {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter {
+            text-align: center;
+            opacity: 0.7;
+            margin-top: 1rem;
+            margin-right: 1.5rem;
+        }
+
+        .filter:hover {
+            opacity: 1.2;
+            cursor: pointer;
+        }
+
+        .filter p {
+            font-size: 0.8rem;
+        }
+
+        .tax-info {
+            display: none;
+        }
+        .tax-toggle{
+            border: 1px solid black;
+            border-radius: 1rem;
+            height: 2.5rem;
+            padding: 0.8rem;
+            margin-left:4rem;
+            display: flex;
+            align-items: center;
+        }

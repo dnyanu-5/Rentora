@@ -6,7 +6,7 @@
                 <h4>Create New Listings</h4>
                 <form action="/listings" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
 
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label for="title" class="form-label">Title</label>
                         <input type="text" name="listings[title]" placeholder="Add catchy title" required class="form-control">
                         <div class="valid-feedback">
@@ -17,7 +17,7 @@
                         </div>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label for="description" class="form-label">Description</label>
                         <textarea name="listings[description]" placeholder="Enter description" rows="2" cols="10" required
                             class="form-control"></textarea>
@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="mb-3 col-md-4">
+                        <div class="mb-2 col-md-4">
                             <label for="price" class="form-label">Price</label>
                             <input name="listings[price]" placeholder="0000" required class="form-control">
                             <div class="invalid-feedback">
@@ -35,7 +35,7 @@
                             </div>
                         </div>
 
-                        <div class="mb-3 col-md-8">
+                        <div class="mb-2 col-md-8">
                             <label for="country" class="form-label">Country</label>
                             <input type="text" name="listings[country]" placeholder="Enter country" required
                                 class="form-control">
@@ -50,12 +50,12 @@
                         <input type="text" name="listings[img]" placeholder="Enter image URL/link" class="form-control">
                     </div> -->
 
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label for="img" class="form-label">Upload Image</label>
                         <input type="file" name="image" placeholder="Upload image URL/link" class="form-control" required>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label for="location" class="form-label">Location</label>
                         <input type="text" name="listings[location]" placeholder="Enter location" required
                             class="form-control">
@@ -63,8 +63,7 @@
                             Please select a valid location.
                         </div>
                     </div>
-
-                    <button class="btn btn-dark add-btn mt-3">Add</button>
+                    <button class="btn btn-dark add-btn mt-2">Add</button>
                     <br>
                 </form>
                 <br>

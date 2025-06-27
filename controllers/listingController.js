@@ -60,7 +60,7 @@ module.exports.edit = async (req, res) => {
         return res.redirect("/listings");
     }
     let originalImageUrl = lists.img.url;
-    originalImageUrl = originalImageUrl.replace("/upload", "/upload/w_200/e_blur:300");
+    originalImageUrl = originalImageUrl.replace("/upload", "/upload/w_200/e_blur:100");
     return res.render("listings/editform.ejs", { lists, originalImageUrl });
 };
 //update

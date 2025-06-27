@@ -2,14 +2,13 @@
 
     <body>
         <div class="row mt-3">
-            <div class="col-8 offset-2"></div>
-            <h4>Edit Listings</h4>
+            <div class="col-6 offset-3"></div>
+            <h4>Edit Your Listings</h4>
             <form action="/listings/<%= lists._id %>?_method=PUT" method="POST" novalidate class="needs-validation"
                 enctype="multipart/form-data">
 
                 <input type="hidden" name="listings[img][url]" value="<%= lists.img.url %>">
                 <input type="hidden" name="listings[img][filename]" value="<%= lists.img.filename || 'listingimage' %>">
-
 
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
@@ -62,7 +61,7 @@
                     <input type="file" name="image" class="form-control" placeholder="upload new image">
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-2">
                     <label for="location" class="form-label">Location</label>
                     <input type="text" name="location" value="<%= lists.location %>" class="form-control" required>
                     <div class="invalid-feedback">
@@ -70,7 +69,7 @@
                     </div>
                 </div>
 
-                <button class="btn btn-dark add-btn mt-3">Save Changes</button>
+                <button class="btn btn-dark add-btn mt-2 mb-3">Save Changes</button>
             </form>
             <br>
         </div>
