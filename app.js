@@ -2,7 +2,6 @@ if (process.env.NODE_ENV != "production") {
   require('dotenv').config();
 }
 // console.log(process.env.ATLASDB_URL) ;
-
 // step 1 basic setup 
 const express = require("express");
 const app = express();
@@ -10,6 +9,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
+
 app.set("view engine", "ejs");
 const methodOverride = require("method-override");
 
@@ -24,7 +24,6 @@ const User = require("./datamodels/user.js");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 
-// Add this middleware in your `app.js` file before routes
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(methodOverride('_method'));  // Use this middleware after body parsing
@@ -93,8 +92,6 @@ main().then((res) => {
 async function main() {
   await mongoose.connect(mongoURL);
 }
-
-//step 3 --> init folder 
 
 // listings routes 
 app.use("/listings", listings);

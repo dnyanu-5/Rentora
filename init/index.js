@@ -1,5 +1,4 @@
 // step 3 initializing databse 
-
 const mongoose = require("mongoose");
 const initdata = require("./data.js");
 const Listing = require("../datamodels/listing.js");

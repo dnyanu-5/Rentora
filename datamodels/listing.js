@@ -22,7 +22,6 @@ const listingSchema = new Schema({
         },
         filename: String,
     },
-
     price: {
         type: Number,
     },
