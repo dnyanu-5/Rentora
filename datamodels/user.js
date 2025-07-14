@@ -8,6 +8,12 @@ const UserSchema = new Schema({
         type:String,
         required:true
     },
+    googleId: {
+    type: String,
+    unique: true,
+    sparse: true
+  },
+  username: String,
 });
 
 UserSchema.plugin(passportLocalMongoose);  // automatically define username and password and some methods

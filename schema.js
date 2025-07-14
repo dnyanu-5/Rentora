@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const reviews = require('./datamodels/review');
+
 module.exports.listingSchema = Joi.object({
     listings: Joi.object({
         title: Joi.string().required(),
@@ -17,3 +17,14 @@ module.exports.reviewsSchema = Joi.object({
         comment: Joi.string().required(),
     }).required(),
 });
+
+// module.exports.userSchema = Joi.object({
+//   username: Joi.string().required(),
+//   password: Joi.string()
+//     .min(8)
+//     .pattern(new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?#&])[A-Za-z\\d@$!%*?#&]{8,}$"))
+//     .required()
+//     .messages({
+//       "string.pattern.base": "Password must include uppercase, lowercase, number, and special character.",
+//     }),
+// });

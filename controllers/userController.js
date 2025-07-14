@@ -7,12 +7,13 @@ module.exports.signup = (req, res) => {
 
 //submit signup
 module.exports.submitSignup = async (req, res,next) => {
+    
     try {
         let { username, email, password } = req.body;
         const newUser = new User({ email, username });
         const registerUser = await User.register(newUser, password);
         console.log(registerUser);
-
+        
         req.login(registerUser, (err) => {
             if (err) {
                 return next(err);

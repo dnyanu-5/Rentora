@@ -9,6 +9,8 @@ const mongoose = require("mongoose");
 const path = require("path");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
 
 app.set("view engine", "ejs");
 const methodOverride = require("method-override");
@@ -16,6 +18,7 @@ const methodOverride = require("method-override");
 const listings = require("./routes/listings.js");
 const reviews = require("./routes/reviews.js");
 const userRoute = require("./routes/userRoute.js");
+const GoogleRoute = require("./routes/googleRoute.js");
 
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -72,6 +75,32 @@ app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 
+// login with google 
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: "http://localhost:9000/auth/google/callback"
+},
+  async (accessToken, refreshToken, profile, done) => {
+    try {
+      let user = await User.findOne({ googleId: profile.id });
+
+      if (!user) {
+        user = new User({
+          username: profile.displayName,
+          googleId: profile.id,
+          email: profile.emails?.[0]?.value || 'no-email@google.com',
+        });
+        await user.save();
+      }
+
+      return done(null, user);
+    } catch (err) {
+      return done(err, null);
+    }
+  }
+));
+
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -83,14 +112,14 @@ app.use((req, res, next) => {
 });
 
 //database
-const mongoURL="mongodb://127.0.0.1:27017/airbnbDB";
+// const mongoURL="mongodb://127.0.0.1:27017/airbnbDB";
 main().then((res) => {
   console.log("database is connected...");
 }).catch((err) => {
   console.log(err);
 })
 async function main() {
-  await mongoose.connect(mongoURL);
+  await mongoose.connect(dbURL);
 }
 
 // listings routes 
@@ -99,6 +128,8 @@ app.use("/listings", listings);
 app.use("/listings/:id/reviews", reviews);
 //user routes
 app.use("/", userRoute);
+//google route 
+app.use("/", GoogleRoute);
 
 // wrong path error
 app.all("*splate", (req, res, next) => {

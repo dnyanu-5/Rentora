@@ -1,4 +1,5 @@
 const Listing = require("./datamodels/listing");
+const { userSchema } = require("./schema.js");
 const Review = require("./datamodels/review.js");
 const {listingSchema,reviewsSchema}= require("./schema.js");
 const ExpressError = require("./utils/ExpressError.js");
@@ -60,3 +61,12 @@ module.exports.validateReviews = (req, res, next) => {
     }
 }
 
+module.exports.validateUser = (req, res, next) => {
+  const { error } = userSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map((el) => el.message).join(", ");
+    req.flash("error", msg);
+    return res.redirect("/signup");
+  }
+  next();
+};
