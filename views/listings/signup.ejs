@@ -51,7 +51,7 @@
                             <% }) %>
                     </ul>
                 </div>
-            <% } %>
+                <% } %>
 
                     <form id="signinForm" action="/signup" method="post" class="needs-validation" novalidate>
                         <div class="mb-3">
@@ -59,20 +59,26 @@
                             <input type="text" name="username" required class="form-control" id="username">
                             <div class="valid-feedback">Looks good.</div>
                         </div>
+
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" name="email" required id="email" class="form-control">
                             <div class="valid-feedback">Looks good.</div>
                             <div class="invalid-feedback">Please enter a valid email.</div>
                         </div>
+
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             <input type="password" name="password" required id="password" class="form-control">
-                            <div class="valid-feedback">Looks good.</div>
+
+                            <!-- <div class="valid-feedback">Looks good.</div> -->
                             <div class="invalid-feedback" id="passwordError">
                                 Please enter a valid password.
                             </div>
                         </div>
+
+
+
                         <button class="btn btn-success" type="submit">Sign in</button>
                     </form>
         </div>
