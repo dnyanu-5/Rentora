@@ -3,6 +3,8 @@ const { userSchema } = require("./schema.js");
 const Review = require("./datamodels/review.js");
 const {listingSchema,reviewsSchema}= require("./schema.js");
 const ExpressError = require("./utils/ExpressError.js");
+const { check, validationResult } = require('express-validator');
+
 
 module.exports.isLoggedIn = (req, res, next) => {
     // console.log(req.user);
@@ -70,3 +72,26 @@ module.exports.validateUser = (req, res, next) => {
   }
   next();
 };
+
+// password validation 
+
+module.exports.validateUserPass = [
+  check("username").notEmpty().withMessage("Username is required"),
+  check("email").isEmail().withMessage("Please provide a valid email"),
+  check("password")
+    .isLength({ min: 8 }).withMessage("Password must be at least 8 characters long")
+    .matches(/[A-Z]/).withMessage("Password must contain at least one uppercase letter")
+    .matches(/[a-z]/).withMessage("Password must contain at least one lowercase letter")
+    .matches(/[0-9]/).withMessage("Password must contain at least one number")
+    .matches(/[@#$%^&*]/).withMessage("Password must contain at least one special character (@, #, $, %,^,&,*)"),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const errorMessages = errors.array().map(e => e.msg);
+      req.flash('error', errorMessages);
+      return res.redirect("/signup");
+    }
+    next();
+  }
+];
+

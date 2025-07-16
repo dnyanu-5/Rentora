@@ -1,36 +1,81 @@
-<% layout("/layouts/boilerplate") -%>
+<!-- <% layout("/layouts/boilerplate") -%>
     <div class="row mt-3">
         <h2 class="col-6 offset-3">Signin for Dnya-bnb</h2>
         <div class="col-6 offset-3">
             <form action="/signup" method="post" class="needs-validation" novalidate>
-                 <div class="mb-3">
-                        <label for="username" class="form-label">username</label>
-                        <input type="text" name=username  required class="form-control" id="username">
-                        <div class="valid-feedback">
-                            looks good.
-                        </div>
+                <div class="mb-3">
+                    <label for="username" class="form-label">username</label>
+                    <input type="text" name=username required class="form-control" id="username">
+                    <div class="valid-feedback">
+                        looks good.
                     </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">email</label>
-                        <input type="email" name=email required id="email" class="form-control">
-                        <div class="valid-feedback">
-                            looks good.
-                        </div>
-                        <div class="invalid-feedback">
-                            Please enter a valid email.
-                        </div>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">email</label>
+                    <input type="email" name=email required id="email" class="form-control">
+                    <div class="valid-feedback">
+                        looks good.
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">password</label>
-                        <input type="password" name=password required id="password" class="form-control">
-                        <div class="valid-feedback">
-                            looks good.
-                        </div>
-                        <div class="invalid-feedback">
-                            Please enter a valid password.
-                        </div>
+                    <div class="invalid-feedback">
+                        Please enter a valid email.
                     </div>
-                    <button class="btn btn-success">Sign in</button>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">password</label>
+                    <input type="password" name=password required id="password" class="form-control">
+                    <div class="valid-feedback">
+                        looks good.
+                    </div>
+                    <div class="invalid-feedback">
+                        Please enter a valid password.
+                    </div>
+                </div>
+                <button class="btn btn-success">Sign in</button>
             </form>
         </div>
+    </div> -->
+
+<% layout("/layouts/boilerplate") -%>
+
+    <div class="row mt-3">
+        <h2 class="col-6 offset-3">Signin for Dnya-bnb</h2>
+        <div class="col-6 offset-3">
+
+            <% if (error && error.length> 0) { %>
+                <div class="alert alert-danger">
+                    <ul>
+                        <% error.forEach(msg=> { %>
+                            <li>
+                                <%= msg %>
+                            </li>
+                            <% }) %>
+                    </ul>
+                </div>
+            <% } %>
+
+                    <form id="signinForm" action="/signup" method="post" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" name="username" required class="form-control" id="username">
+                            <div class="valid-feedback">Looks good.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" name="email" required id="email" class="form-control">
+                            <div class="valid-feedback">Looks good.</div>
+                            <div class="invalid-feedback">Please enter a valid email.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" name="password" required id="password" class="form-control">
+                            <div class="valid-feedback">Looks good.</div>
+                            <div class="invalid-feedback" id="passwordError">
+                                Please enter a valid password.
+                            </div>
+                        </div>
+                        <button class="btn btn-success" type="submit">Sign in</button>
+                    </form>
+        </div>
     </div>
+
+    <script src="/js/passwordValidation.js"></script>

@@ -6,11 +6,12 @@ const passport = require("passport");
 const { saveRedirectUrl } = require("../middleware.js");
 const usercontroller = require("../controllers/userController.js");
 const { validateUser } = require("../middleware.js");
+const {validateUserPass} = require("../middleware.js");
 
 //signup
 router.route("/signup")
     .get(usercontroller.signup)
-    .post(wrapAsync(usercontroller.submitSignup));
+    .post(validateUserPass,wrapAsync(usercontroller.submitSignup));
 
 //login 
 router.route("/login")
