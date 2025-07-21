@@ -2,6 +2,11 @@
 
 **Rentora** is a full-stack web application inspired by Airbnb, designed for listing and booking unique stays around the world. Built as a personal project to practice modern web development, backend integration, and the MVC architectural pattern.
 
+## 🌐 Live Site
+
+**Rentora is deployed here**: [https://rentora-182v.onrender.com](https://rentora-182v.onrender.com)
+
+
 ## ✨ Features
 
 - 🛏️ Create, edit, and delete property listings
