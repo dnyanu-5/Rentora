@@ -32,7 +32,7 @@ module.exports.login = (req, res) => {
 };
 //submit login
 module.exports.submitLogin = async (req, res) => {
-    req.flash("success", "welcome back to Dnya-bnb..");
+    req.flash("success", "welcome back to Rentora..");
     let redirectUrl = res.locals.redirectUrl || "/listings";
     return res.redirect(redirectUrl);
 };
