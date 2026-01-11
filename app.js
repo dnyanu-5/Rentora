@@ -139,6 +139,7 @@ app.get("/", (req, res) => {
 app.all("*splate", (req, res, next) => {
   next(new ExpressError(404, "Page not found!"));
 });
+
 // middleware to handle error 
 app.use((err, req, res, next) => {
   if (res.headersSent) {
