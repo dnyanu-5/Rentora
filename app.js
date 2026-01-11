@@ -131,6 +131,10 @@ app.use("/", userRoute);
 //google route 
 app.use("/", GoogleRoute);
 
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
+
 // wrong path error
 app.all("*splate", (req, res, next) => {
   next(new ExpressError(404, "Page not found!"));
