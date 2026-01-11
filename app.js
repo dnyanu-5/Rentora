@@ -47,8 +47,8 @@ const store = MongoStore.create({
   touchAfter: 24 * 3600,
 });
 
-store.on("error",()=>{
-  console.log("error in mongo session",err);
+store.on("error", () => {
+  console.log("error in mongo session", err);
 });
 
 const sessionOptions = {
@@ -62,9 +62,9 @@ const sessionOptions = {
     maxAge: 1000 * 60 * 60 * 24 * 7
   }
 };
-
-app.listen(9000, () => {
-  console.log("server is listening...");
+const PORT = process.env.PORT || 9000;
+app.listen(PORT, () => {
+  console.log(`server is listening on port ${PORT}`);
 })
 
 app.use(session(sessionOptions));
@@ -114,7 +114,7 @@ app.use((req, res, next) => {
 //database
 // const mongoURL="mongodb://127.0.0.1:27017/airbnbDB";
 main().then((res) => {
-  console.log("database is connected...");
+  console.log("Mongo-db connected...");
 }).catch((err) => {
   console.log(err);
 })
